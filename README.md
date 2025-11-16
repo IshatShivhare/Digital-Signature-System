@@ -72,7 +72,7 @@ digital_signature_system/
 
 ### Step 1: Clone the Repository
 ```bash
-git clone <repository-url>
+git clone https://github.com/IshatShivhare/Digital-Signature-System.git
 cd digital_signature_system
 ```
 
@@ -420,8 +420,6 @@ Contributions are welcome! Please:
 
 For issues, questions, or suggestions:
 - Open an issue on GitHub
-- Contact: [your-email@example.com]
-- Documentation: [project-wiki-url]
 
 ---
 
@@ -447,8 +445,6 @@ For issues, questions, or suggestions:
 
 **Version**: 1.0.0  
 **Last Updated**: November 2024  
-**Status**: Production Ready
+**Status**: Development Phase
 
 ---
-
-Made with ❤️ for Information Security Education
