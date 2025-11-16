@@ -3,10 +3,14 @@ test_signing.py
 Unit tests for document signing functionality.
 """
 
-import unittest
+import sys
 import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
+
+import unittest
 import tempfile
 import shutil
+import hashlib
 from signer import DocumentSigner
 from crypto_core import CryptoCore
 from utils import FileUtils
@@ -203,15 +207,15 @@ class TestCryptographicOperations(unittest.TestCase):
         # Generate keys
         private_key, public_key = CryptoCore.generate_rsa_keypair()
         
-        # Create test data
+        # Create test data and its hash
         test_data = b"Test message for signing"
-        hash_digest = CryptoCore.hash_file.__wrapped__(test_data)
+        hash_digest = hashlib.sha256(test_data).digest()
         
-        # Sign
-        signature = CryptoCore.sign_hash(private_key, test_data)
+        # Sign the hash
+        signature = CryptoCore.sign_hash(private_key, hash_digest)
         
-        # Verify
-        is_valid = CryptoCore.verify_signature(public_key, test_data, signature)
+        # Verify the signature against the hash
+        is_valid = CryptoCore.verify_signature(public_key, hash_digest, signature)
         
         self.assertTrue(is_valid)
     

@@ -4,7 +4,7 @@ Metadata creation, parsing, and validation for digital signatures.
 """
 
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 from utils import EncodingUtils, FileUtils
 
 
@@ -30,7 +30,7 @@ class MetadataManager:
         """
         metadata = {
             "version": MetadataManager.VERSION,
-            "timestamp": datetime.utcnow().isoformat() + "Z",
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "algorithm": MetadataManager.ALGORITHM,
             "file_name": FileUtils.get_filename(file_path),
             "file_size": FileUtils.get_file_size(file_path),
@@ -164,9 +164,12 @@ class MetadataManager:
         
         # Check timestamp is in the past
         try:
-            timestamp = metadata.get("timestamp", "").replace('Z', '')
-            dt = datetime.fromisoformat(timestamp)
-            if dt > datetime.utcnow():
+            timestamp_str = metadata.get("timestamp", "")
+            if timestamp_str.endswith('Z'):
+                timestamp_str = timestamp_str[:-1] + '+00:00'
+            
+            dt = datetime.fromisoformat(timestamp_str)
+            if dt > datetime.now(timezone.utc):
                 warnings.append("Timestamp is in the future")
         except Exception:
             warnings.append("Invalid timestamp format")

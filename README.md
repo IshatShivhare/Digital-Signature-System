@@ -10,7 +10,7 @@ A comprehensive, user-friendly application for signing and verifying documents u
 ### Core Functionality
 - **RSA-2048 Digital Signatures**: Industry-standard 2048-bit RSA encryption
 - **SHA-256 Hashing**: Secure document fingerprinting
-- **Timestamp Metadata**: ISO 8601 timestamping for signature tracking
+- **Local Timestamp Metadata**: ISO 8601 timestamping using the local system time for signature tracking.
 - **QR Code Generation**: Easy public key and signature sharing
 - **User-Friendly GUI**: Intuitive Tkinter interface with two operation modes
 
